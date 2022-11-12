@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import Modal from './Modal/Modal';
 import './styles.css';
 import Searchbar from './Searchbar/Searchbar';
-import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
+import ImageGallery from './ImageGallery/ImageGallery';
+
 export class App extends Component {
   state = {
     query: null,
     showModal: false,
-    modalimg: null,
+    modalImg: null,
+    modalDescr: null,
   };
-  toggleModal = largeimg => {
-    console.log(this.state.modalimg);
-    this.setState({ modalimg: largeimg });
+  toggleModal = (largeImg, largeIMGDescr) => {
+    this.setState({ modalImg: largeImg, modalDescr: largeIMGDescr });
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
   handleSearchbarSubmit = query => {
@@ -19,21 +20,22 @@ export class App extends Component {
   };
   render() {
     return (
-      <>
+      <div className="App">
         <Searchbar onSearch={this.handleSearchbarSubmit} />
-        <ImageGalleryItem onClick={this.toggleModal} query={this.state.query} />
-        <button type="button" onClick={this.toggleModal}>
-          click
-        </button>
+        <ImageGallery onClick={this.toggleModal} query={this.state.query} />
+
         {this.state.showModal && (
-          <Modal largeimg={this.state.modalimg} onClose={this.toggleModal}>
+          <Modal
+            IMGDescr={this.state.modalDescr}
+            largeImg={this.state.modalImg}
+            onClose={this.toggleModal}
+          >
             <button type="button" onClick={this.toggleModal}>
               click
             </button>
           </Modal>
         )}
-        {}
-      </>
+      </div>
     );
   }
 }
