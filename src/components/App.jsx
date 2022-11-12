@@ -7,8 +7,11 @@ export class App extends Component {
   state = {
     query: null,
     showModal: false,
+    modalimg: null,
   };
-  toggleModal = () => {
+  toggleModal = largeimg => {
+    console.log(this.state.modalimg);
+    this.setState({ modalimg: largeimg });
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
   handleSearchbarSubmit = query => {
@@ -18,12 +21,12 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSearch={this.handleSearchbarSubmit} />
-        <ImageGalleryItem query={this.state.query} />
+        <ImageGalleryItem onClick={this.toggleModal} query={this.state.query} />
         <button type="button" onClick={this.toggleModal}>
           click
         </button>
         {this.state.showModal && (
-          <Modal onClose={this.toggleModal}>
+          <Modal largeimg={this.state.modalimg} onClose={this.toggleModal}>
             <button type="button" onClick={this.toggleModal}>
               click
             </button>
