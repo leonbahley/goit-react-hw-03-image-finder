@@ -49,18 +49,7 @@ export default class ImageGallery extends Component {
     return (
       <>
         {this.state.error && <div>{this.state.error.message}</div>}
-        {this.state.loading && (
-          <div className="Loader">
-            <Dna
-              visible={true}
-              height="80"
-              width="80"
-              ariaLabel="dna-loading"
-              wrapperStyle={{}}
-              wrapperClass="dna-wrapper"
-            />
-          </div>
-        )}
+
         {this.state.query.length !== 0 && (
           <ul className="ImageGallery">
             {this.state.query.map(item => (
@@ -73,6 +62,18 @@ export default class ImageGallery extends Component {
               />
             ))}
           </ul>
+        )}
+        {this.state.loading && (
+          <div className="Loader">
+            <Dna
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="dna-loading"
+              wrapperStyle={{}}
+              wrapperClass="dna-wrapper"
+            />
+          </div>
         )}
         {this.state.query.length !== 0 && (
           <Button onClick={this.handleLoadMore} />

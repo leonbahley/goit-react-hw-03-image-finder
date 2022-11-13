@@ -7,7 +7,7 @@ export class Button extends Component {
   render() {
     return (
       <button className="Button" type="button" onClick={this.handleLoadMore}>
-        load more
+        Load more
       </button>
     );
   }

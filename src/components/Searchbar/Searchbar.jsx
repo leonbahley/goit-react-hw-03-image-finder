@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { ImSearch } from 'react-icons/im';
+
 export default class Searchbar extends Component {
   state = {
     query: '',
@@ -20,7 +22,9 @@ export default class Searchbar extends Component {
       <header className="Searchbar">
         <form onSubmit={this.handleSubmit} className="SearchForm">
           <button type="submit" className="SearchForm-button">
-            <span className="button-label">Search</span>
+            <span className="button-label">
+              <ImSearch />
+            </span>
           </button>
 
           <input
