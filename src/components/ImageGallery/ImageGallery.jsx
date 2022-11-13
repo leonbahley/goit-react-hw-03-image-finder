@@ -50,7 +50,7 @@ export default class ImageGallery extends Component {
       <>
         {this.state.error && <div>{this.state.error.message}</div>}
         {this.state.loading && (
-          <div>
+          <div className="Loader">
             <Dna
               visible={true}
               height="80"
