@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import css from './ImageGalleryItem.module.css';
 
 export default class ImageGalleryItem extends Component {
   handleClick = () => {
@@ -7,9 +8,9 @@ export default class ImageGalleryItem extends Component {
   };
   render() {
     return (
-      <li className="ImageGalleryItem" onClick={this.handleClick}>
+      <li className={css.ImageGalleryItem} onClick={this.handleClick}>
         <img
-          className="ImageGalleryItem-image"
+          className={css.ImageGalleryItemImage}
           src={this.props.smallImg}
           alt={this.props.IMGDescr}
         />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Modal from './Modal/Modal';
-import './styles.css';
+import css from './App.module.css';
 
 import ImageGallery from './ImageGallery/ImageGallery';
 
@@ -17,7 +17,7 @@ export class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className={css.App}>
         <ImageGallery onClick={this.toggleModal} />
 
         {this.state.showModal && (

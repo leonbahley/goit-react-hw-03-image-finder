@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import css from './Button.module.css';
 
 export class Button extends Component {
   handleLoadMore = () => {
@@ -7,7 +8,11 @@ export class Button extends Component {
   };
   render() {
     return (
-      <button className="Button" type="button" onClick={this.handleLoadMore}>
+      <button
+        className={css.Button}
+        type="button"
+        onClick={this.handleLoadMore}
+      >
         Load more
       </button>
     );

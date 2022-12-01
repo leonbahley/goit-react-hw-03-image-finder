@@ -4,6 +4,7 @@ import { Dna } from 'react-loader-spinner';
 import { Button } from 'components/Button/Button';
 import PropTypes from 'prop-types';
 import Searchbar from 'components/Searchbar/Searchbar';
+import css from './ImageGallery.module.css';
 
 export default class ImageGallery extends Component {
   state = {
@@ -67,8 +68,8 @@ export default class ImageGallery extends Component {
         <Searchbar onSearch={this.handleSearch} />
         {this.state.error && <div>{this.state.error.message}</div>}
 
-        {this.state.query.length && (
-          <ul className="ImageGallery">
+        {this.state.query.length !== 0 && (
+          <ul className={css.ImageGallery}>
             {this.state.query.map(item => (
               <ImageGalleryItem
                 key={item.id}
@@ -81,7 +82,7 @@ export default class ImageGallery extends Component {
           </ul>
         )}
         {this.state.loading && (
-          <div className="Loader">
+          <div className={css.Loader}>
             <Dna
               visible={true}
               height="80"
