@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ImSearch } from 'react-icons/im';
+import PropTypes from 'prop-types';
 
 export default class Searchbar extends Component {
   state = {
@@ -41,3 +42,7 @@ export default class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export class Button extends Component {
   handleLoadMore = () => {
@@ -12,3 +13,7 @@ export class Button extends Component {
     );
   }
 }
+
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};

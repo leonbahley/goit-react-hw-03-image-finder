@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import { Dna } from 'react-loader-spinner';
-import { Button } from 'Button/Button';
+import { Button } from 'components/Button/Button';
+import PropTypes from 'prop-types';
+import Searchbar from 'components/Searchbar/Searchbar';
 
 export default class ImageGallery extends Component {
   state = {
+    searchQuery: null,
     page: 1,
     query: [],
     loading: false,
     error: null,
+    showLoadMore: false,
   };
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.query !== prevProps.query) {
+    if (this.state.searchQuery !== prevState.searchQuery) {
       this.setState({ query: [] });
     }
     if (
-      this.props.query !== prevProps.query ||
+      this.state.searchQuery !== prevState.searchQuery ||
       this.state.page !== prevState.page
     ) {
       this.setState({ loading: true });
-      fetch(`https://pixabay.com/api/?q=${this.props.query}&page=${this.state.page}&key=30826076-8f523437068dfd34b07c8f4ae&image_type=photo&orientation=horizontal&per_page=12
+      fetch(`https://pixabay.com/api/?q=${this.state.searchQuery}&page=${this.state.page}&key=30826076-8f523437068dfd34b07c8f4ae&image_type=photo&orientation=horizontal&per_page=12
 `)
         .then(response => {
           if (response.ok) {
@@ -31,6 +35,12 @@ export default class ImageGallery extends Component {
           if (images.hits.length === 0) {
             alert('No such images');
           }
+          if (images.hits.length < 12) {
+            this.setState({ showLoadMore: false });
+          } else {
+            this.setState({ showLoadMore: true });
+          }
+          this.setState({ loadQuantity: images.hits.length });
           return this.setState({
             query: [...this.state.query, ...images.hits],
           });
@@ -45,12 +55,19 @@ export default class ImageGallery extends Component {
   handleLoadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
+  handleSearch = query => {
+    this.setState({ page: 1 });
+    this.setState({ searchQuery: query });
+  };
   render() {
+    let { showLoadMore } = this.state;
+
     return (
       <>
+        <Searchbar onSearch={this.handleSearch} />
         {this.state.error && <div>{this.state.error.message}</div>}
 
-        {this.state.query.length !== 0 && (
+        {this.state.query.length && (
           <ul className="ImageGallery">
             {this.state.query.map(item => (
               <ImageGalleryItem
@@ -75,10 +92,12 @@ export default class ImageGallery extends Component {
             />
           </div>
         )}
-        {this.state.query.length !== 0 && (
-          <Button onClick={this.handleLoadMore} />
-        )}
+        {showLoadMore && <Button onClick={this.handleLoadMore} />}
       </>
     );
   }
 }
+
+ImageGallery.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
